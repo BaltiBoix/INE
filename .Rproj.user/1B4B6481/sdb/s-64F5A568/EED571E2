@@ -1,0 +1,18 @@
+{
+    "contents" : "---\ntitle: \"INE data example\"\nauthor: \"Balti Boix\"\ndate: \"22 de noviembre de 2015\"\noutput: html_document\n---\n\nThis is an example of using INE data in R.\nThe format of data is PC-axis. There is a specific package called pxR to read px files.\n\n```{r warning=FALSE, message=FALSE}\nrequire(pxR, quietly = TRUE)\nrequire(dplyr, quietly = TRUE)\nrequire(ggplot2, quietly = TRUE)\n```\n\nDownload table 1729: Nacimientos por cada 1000 defunciones por provincias.\nRead into a px object and transform into a data frame\n\n```{r warning=FALSE, message=FALSE}\ndownload.file(\"http://www.ine.es/jaxiT3/files/es/1729.px?t=1729&nocab=1\", destfile = \"tabla_1729.px\", method = \"internal\")\ntpx<-read.px(\"tabla_1729.px\")\nc(tpx$SUBJECT.AREA$value, tpx$TITLE$value)\ntdf<-as.data.frame(tpx)\ntdf$Periodo<-as.numeric(as.character(tdf$Periodo))\nhead(tdf)\n```\nPlot of the catalonian provinces\n\n```{r warning=FALSE, message=FALSE}\ntcatdf<-filter(tdf, grepl(\"Barcelona|Tarragona|Lleida|Girona\", Provincias))\np<-ggplot(tcatdf, aes(x=Periodo, y=value, color=Provincias))\np<-p + geom_line()\np<-p + xlab(\"Año\") + ylab(\"\") + ggtitle(as.character(tpx$TITLE))\nprint(p)\n```\n",
+    "created" : 1448185390799.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3631093759",
+    "id" : "EED571E2",
+    "lastKnownWriteTime" : 1448191701,
+    "path" : "~/RProjects/INE/INE.Rmd",
+    "project_path" : "INE.Rmd",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "type" : "r_markdown"
+}
