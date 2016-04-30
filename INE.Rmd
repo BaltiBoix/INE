@@ -18,7 +18,7 @@ Download table 1729: Nacimientos por cada 1000 defunciones por provincias.
 Read into a px object and transform into a data frame
 
 ```{r warning=FALSE, message=FALSE}
-download.file("http://www.ine.es/jaxiT3/files/es/1729.px?t=1729&nocab=1", destfile = "tabla_1729.px", method = "internal")
+download.file("http://www.ine.es/jaxiT3/files/t/es/px/1729.px?nocab=1", destfile = "tabla_1729.px", method = "auto")
 tpx<-read.px("tabla_1729.px")
 c(tpx$SUBJECT.AREA$value, tpx$TITLE$value)
 tdf<-as.data.frame(tpx)

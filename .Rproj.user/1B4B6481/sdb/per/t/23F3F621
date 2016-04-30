@@ -1,0 +1,18 @@
+{
+    "contents" : "require(dplyr)\nrequire(zoo)\n\nurl<-'http://www.bde.es/webbde/es/estadis/infoest/series/ie.zip'\ndownload.file(url, dest=\"dataset.zip\", mode=\"wb\") \nunzip (\"dataset.zip\", exdir = \"./dataset\")\n\ncatalog<-read.csv('dataset/catalogo_ie.csv', header=TRUE, stringsAsFactors = FALSE)\n\nie0101<-read.csv('dataset/ie0101.csv', header=TRUE, stringsAsFactors = FALSE)\n\npib<- ie0101 %>% slice(4:NROW(.)) %>% select(fecha=X, pib=IE_1_1.2) %>% mutate(fecha=as.yearmon(fecha)) \n",
+    "created" : 1459621990663.000,
+    "dirty" : true,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2445490982",
+    "id" : "23F3F621",
+    "lastKnownWriteTime" : 1459626193,
+    "path" : "~/RProjects/INE/BdE.R",
+    "project_path" : "BdE.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

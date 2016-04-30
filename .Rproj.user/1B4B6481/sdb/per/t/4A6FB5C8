@@ -1,0 +1,17 @@
+{
+    "contents" : "library(forecast)\nlibrary(ggfortify)\nlibrary(gridExtra)\n\ndata(condmilk)\nhead(condmilk)\ngglagplot(condmilk, lags=12)\nggfreqplot(condmilk)\ntsdisplay(condmilk)\nfrequency(condmilk)\nlambda<-BoxCox.lambda(condmilk)\ntsdisplay(BoxCox(condmilk, lambda = lambda))\nndiffs(BoxCox(condmilk, lambda = lambda))\nnsdiffs(BoxCox(condmilk, lambda = lambda))\n\nfit1<-Arima(condmilk, lambda = lambda, order = c(1, 0, 0), seasonal = list(order=c(1, 0, 1), period = 12))\nggtsdiag(fit1)\ntsdisplay(residuals(fit1))\nBox.test(residuals(fit1), lag = 36, fitdf=3)\n\nfit2<-auto.arima(condmilk, lambda = lambda) #, stepwise=FALSE, approximation = FALSE, d=0, D=0, max.order = 3)\nggtsdiag(fit1)\ntsdisplay(residuals(fit2))\nBox.test(residuals(fit2), lag = 36, fitdf=3)\n\nprint(paste(\"AICc(fit1, fit2)\", fit1$aicc, fit2$aicc))\n\nfit3<-stlf(condmilk, s.window = 'per', lambda = lambda, method = 'arima')\n\ngrid.arrange(autoplot(forecast(fit1, h=24))+ggtitle('fit1'),\n            autoplot(forecast(fit2, h=24))+ggtitle('fit2'),\n            autoplot(forecast(fit3, h=24))+ggtitle('fit3'))\n",
+    "created" : 1460309997000.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3307907220",
+    "id" : "4A6FB5C8",
+    "lastKnownWriteTime" : 1460310780,
+    "path" : "~/RProjects/INE/forecast_ex.R",
+    "project_path" : "forecast_ex.R",
+    "properties" : {
+    },
+    "relative_order" : 9,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

@@ -1,0 +1,18 @@
+{
+    "contents" : "#\n# Índices de entradas de pedidos corregidos de efectos estacionales y de calendario (Base 2010)\n#\n\nrequire(pxR, quietly = TRUE)\nrequire(dplyr, quietly = TRUE)\nrequire(zoo, quietly = TRUE)\nrequire(ggplot2, quietly = TRUE)\n\nurl.ine<-'http://www.ine.es/jaxiT3/files/t/es/px/3402.px?nocab=1'\n\nfile.name<-basename(url.ine)\nfile.name<-strsplit(file.name, '[?]')[[1]][1]\n\ndownload.file(url.ine, destfile = file.name, method = \"auto\")\n\ntpx<-read.px(\"3402.px\")\ntdf<-as.data.frame(tpx)\ntdf<-tdf %>% mutate(Periodo=as.yearmon(Periodo, \"%YM%m\"))\nsaveRDS(tdf, 'iep.RDS', compress = TRUE)\n\nlista.Destinos<-tpx$VALUES$Destino.económico.de.los.bienes[c(1,2,3,9,20,24,28,34,41,44)]\nIndice<-tpx$VALUES$Índice.y.tasas[1]\nggtdf<-tdf %>% filter(Índice.y.tasas == Indice & !is.na(value) & Destino.económico.de.los.bienes %in% lista.Destinos)\n\ng<-ggplot(ggtdf, aes(x=Periodo, y=value))\ng<-g + geom_line()\ng<-g + facet_wrap(~ Destino.económico.de.los.bienes, scales = 'free_y', ncol = 2)\ng<-g + geom_hline(yintercept = 0)\ng<-g + scale_x_yearmon()\ng<-g + ggtitle(paste(tpx$SUBJECT.AREA, \"\\n\",tpx$TITLE))\ng<-g + ylab(Indice)\ng\n\n",
+    "created" : 1459669073535.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "850784099",
+    "id" : "AF73968E",
+    "lastKnownWriteTime" : 1460397966,
+    "path" : "~/RProjects/INE/iep.R",
+    "project_path" : "iep.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 9,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

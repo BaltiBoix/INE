@@ -1,0 +1,18 @@
+{
+    "contents" : "q2d<-function(x){\n      x <- gsub(\"T1\", \"-01\", x)       # map first quarter to January\n      x <- gsub(\"T2\", \"-04\", x)       # map second quarter to April\n      x <- gsub(\"T3\", \"-07\", x)       # map third quarter to July\n      x <- gsub(\"T4\", \"-10\", x)       # map fourth quarter October\n      \n      x <- paste(x, \"-01\", sep=\"\")    # add first day of the month\n      \n      as.Date(x, \"%Y-%m-%d\")          # convert to date\n}",
+    "created" : 1451245120300.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1073098149",
+    "id" : "B7C89251",
+    "lastKnownWriteTime" : 1451245309,
+    "path" : "~/RProjects/INE/q2d.R",
+    "project_path" : "q2d.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 4,
+    "source_on_save" : true,
+    "type" : "r_source"
+}
